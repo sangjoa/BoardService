@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.care.project.repository.BoardRepository">
+
+	<insert id="write" parameterType="com.care.project.dto.BoardDTO">
+		<selectKey order="BEFORE" keyProperty="boardId" resultType="Integer">
+			SELECT nvl(max(boardId),0) + 1 FROM posts
+		</selectKey>
+		INSERT INTO board VALUES(#{title},#{content},#{writer},#{vCount},#{cDate},#{mDate},#{fName})
+	</insert>
+	
+	<select id="BoardList" resultType="com.care.project.dto.BoardDTO">
+		select * from posts
+	</select>
+	
+	
+	
+</mapper>
