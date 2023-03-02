@@ -21,7 +21,7 @@ public class AjaxController {
 	@PostMapping(value="ajax/idChk", produces = "text/plain;charset=UTF-8")
 	public String idChk(@RequestBody String id) {
 		
-		boolean chk =id.matches("[a-zA-Z0-9_-]{5,20}");
+		boolean chk =id.matches("[a-zA-Z0-9_-]{5,19}");
 		
 		if(id== "" || id == null || id.isEmpty())
 			return "아이디를 입력해주세요";
