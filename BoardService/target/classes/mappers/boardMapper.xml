@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.care.project.repository.BoardRepository">
 
@@ -8,13 +7,31 @@
 		<selectKey order="BEFORE" keyProperty="boardId" resultType="Integer">
 			SELECT nvl(max(boardId),0) + 1 FROM posts
 		</selectKey>
-		INSERT INTO board VALUES(#{title},#{content},#{writer},#{vCount},#{cDate},#{mDate},#{fName})
+		INSERT INTO posts VALUES(#{title},#{content},#{writer},#{vCount},#{cDate},#{mDate},#{fName})
 	</insert>
 	
-	<select id="BoardList" resultType="com.care.project.dto.BoardDTO">
-		select * from posts
+	<select id="boardCount" resultType="Integer"  parameterType="Map">
+		SELECT count(*) FROM posts
+		<choose>
+			<when test="select == '전체'">WHERE title LIKE '%'||#{search}||'%' or writer LIKE '%'||#{search}||'%'</when>
+			<when test="select == '작성자'">WHERE writer LIKE '%'||#{search}||'%'</when>
+			<when test="select == '제목'">WHERE title LIKE '%'||#{search}||'%'</when>
+		</choose>
 	</select>
 	
+	<select id="boardList" resultType="com.care.project.dto.BoardDTO">
+		SELECT B.* FROM(
+			SELECT rownum rn, A.* FROM(
+				SELECT * FROM posts
+				<choose>
+					<when test="sel == '전체'">WHERE title LIKE '%'||#{search}||'%' or writer LIKE '%'||#{search}||'%'</when>
+					<when test="sel == '제목'">WHERE title LIKE '%'||#{search}||'%'</when>
+					<when test="sel == '작성자'">WHERE writer LIKE '%'||#{search}||'%'</when>
+				</choose>
+				 ORDER BY boardId DESC
+			)A
+		)B WHERE rn BETWEEN #{b} and #{e}
+	</select>
 	
 	
 </mapper>

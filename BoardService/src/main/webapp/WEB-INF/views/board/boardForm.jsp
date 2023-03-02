@@ -65,8 +65,9 @@
 						<option>전체</option>
 						<option>제목</option>
 						<option>작성자</option>
-				</select> <input type=text name='search' />
-				 <button name='searchBtn' style="width: 80px;">검색</button>
+				</select>
+				 <input type=text name='search' />
+				 <input type=submit name='searchBtn' value='검색' style="width: 80px; "/>
 				 </td>
 			</tr>
 		</table>

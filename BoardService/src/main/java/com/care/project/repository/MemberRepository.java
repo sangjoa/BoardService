@@ -1,5 +1,7 @@
 package com.care.project.repository;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Repository;
 
 import com.care.project.dto.MemberDTO;
@@ -12,5 +14,5 @@ public interface MemberRepository {
 	public void register(MemberDTO member);
 	public void userUpdate(MemberDTO member);
 	public void userDelete(String id);
-
+	public ArrayList<MemberDTO> memberList();
 }

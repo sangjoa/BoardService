@@ -2,14 +2,18 @@ package com.care.project.service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -23,9 +27,32 @@ public class BoardService {
 	@Autowired BoardRepository repository;
 	
 	
-	public ArrayList<BoardDTO> boardList() {
-		return repository.BoardList();
+	public void boardList(Model model, int currentPage, String search, String select, HttpServletRequest req) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("search", search);
+		map.put("select", select);
+				
+		int totalCount = repository.boardCount(map);
+		
+		System.out.println();
+		
+		int pageBlock = 5;
+		int end = currentPage * pageBlock;
+		int begin = end+1 - pageBlock;
+
+		List<BoardDTO> boardList = repository.boardList(begin, end, select, search);
+		model.addAttribute("boardList", boardList);
+
+		String url = "/board/boardForm?";
+		if(select != null) {
+			url+="select="+select+"&";
+			url+="search="+search+"&";
+		}
+			url+="currentPage=";
+		model.addAttribute("page", PageService.getNavi(currentPage, pageBlock, totalCount, url));
 	}
+	
+	
 
 
 	public String write(MultipartHttpServletRequest multi) {
