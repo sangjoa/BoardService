@@ -58,7 +58,7 @@
 		<table>
 			<tr>
 				<td><select name="select">
-						<option>전체1</option>
+						<option>전체</option>
 						<option>제목</option>
 						<option>작성자</option>
 				</select>
