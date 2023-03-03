@@ -18,13 +18,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.care.project.dto.BoardDTO;
+import com.care.project.dto.MemberDTO;
 import com.care.project.repository.BoardRepository;
+import com.care.project.repository.MemberRepository;
 
 @Service
 public class BoardService {
 	
 	@Autowired HttpSession session;
 	@Autowired BoardRepository repository;
+	@Autowired MemberRepository mrepository;
 	
 	
 	public void boardList(Model model, int currentPage, String search, String select, HttpServletRequest req) {
@@ -107,4 +110,78 @@ public class BoardService {
 		return "게시글 작성 완료";
 	}
 
+
+
+
+	public BoardDTO view(String boardId) {
+		
+		if(boardId == null || boardId.isEmpty())
+			return null;
+		int bI = 0;
+		
+		try {
+			bI = Integer.parseInt(boardId);
+		} catch (Exception e) {
+			return null;
+		}
+		
+		return repository.boardView(bI);
+	}
+	
+	public void vCountInc(String bn) {
+		repository.vCountInc(Integer.parseInt(bn));
+	}
+
+
+
+
+	public String boardDelete(String pw, String confirm, String fName, String bI) {
+		
+		BoardDTO board = repository.boardView(Integer.parseInt(bI));
+		MemberDTO chk = mrepository.findByNick(board.getWriter());
+		
+		if(chk.getPw().equals(pw) == false)
+			return "비밀번호가 일치하지 않습니다";
+		if(pw == null || pw.isEmpty())
+			return "비밀번호를 입력해주세요";
+		if(confirm == null || confirm.isEmpty())
+			return "비밀번호를 입력해주세요";
+		if(pw.equals(confirm) == false)
+			return "비밀번호가 일치하지 않습니다";
+		
+		
+		if(chk != null && chk.getPw().equals(pw)) {
+			repository.boardDelete(Integer.parseInt(bI));
+			
+			String path = "C:\\Users\\dhdlt\\Desktop\\Springs15\\upload" + board.getWriter();
+			path = path + "\\" + fName;
+			File file = new File(path);
+			
+			if(file.exists()) {
+				file.delete();
+			}			
+			return "게시글 삭제 완료";
+		}
+		
+		return "비밀번호를 확인해주세요";
+	}
+
+
+	public String boardUpdate(BoardDTO board) {
+		if(board.getTitle() == null || board.getTitle().isEmpty())
+			return "제목을 입력해주세요";
+		String id = (String)session.getAttribute("id");
+		
+		MemberDTO member = mrepository.findById(id);
+		
+		int rowCount = repository.boardUpdate(board);
+		if(rowCount == 0)
+			return "게시글 수정 실패";
+		
+		return "게시글 수정 성공";
+	}	
+
+	
+	
+	
 }

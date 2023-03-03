@@ -12,7 +12,7 @@
 			<td colspan=3><hr /></td>
 		</tr>
 		<tr>
-			<td style="width: 300px; height: 40px;" valign="top">${nickName }</td>
+			<td style="width: 300px; height: 40px;" valign="top">${board.writer }</td>
 			<td style="width: 300px; height: 40px;" align="center" valign="top">${board.mDate }</td>
 			<td style="width: 300px; height: 40px;" align="right" valign="top">${board.fName }</td>
 		</tr>
@@ -42,7 +42,7 @@
 					</c:when>
 				</c:choose>
 				 <c:choose>
-					<c:when test="${board.writer eq sessionScope.id}">
+					<c:when test="${board.writer eq member.nickName}">
 						<input type=button style="width: 60px;" value='수정'
 							onclick="location.href='${pageContext.request.contextPath}/board/updateForm?bI=${board.boardId}'" />
 						<input type=button style="width: 60px;" value='삭제'
@@ -95,7 +95,6 @@
 		}
 		location.reload();
 	}	
-
 </script>
 
 <style>

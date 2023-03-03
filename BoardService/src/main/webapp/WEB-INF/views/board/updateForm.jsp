@@ -4,13 +4,13 @@
 <c:import url="/default/header" />
 <center>
 	<form action="updateForm" method="post">
-		<input type="hidden" name='bI' value="${bI }" />
+		<input type="hidden" name='bI' value="${board.boardId }" />
 		<p> ${msg }
 		<table style="width: 650px; ">
 			<tr>
 				<td style="width: 80px; height:40px;" align="right">작성자</td>
 				<td style="width: 570px; height:40px;">
-					<input type=text name='id' value="${nickName }" disabled="disabled"/> 
+					<input type=text name='id' value="${board.writer}" disabled="disabled"/> 
 				</td>
 			</tr>
 			<tr>

@@ -20,4 +20,9 @@ public interface BoardRepository {
 			@Param("e") int end, 
 			@Param("sel") String select,
 			@Param("search") String search);
+
+	BoardDTO boardView(int bI);
+	void vCountInc(int bI);
+	void boardDelete(int bI);
+	int boardUpdate(BoardDTO board);
 }

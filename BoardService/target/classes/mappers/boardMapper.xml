@@ -31,5 +31,22 @@
 		)B WHERE rn BETWEEN #{b} and #{e}
 	</select>
 	
+	<select id="boardView" resultType="com.care.project.dto.BoardDTO">
+		select * from posts WHERE boardId=#{bI}
+	</select>
+	
+	<update id="vCountInc">
+		UPDATE posts SET vCount=vCount+1 WHERE boardId=#{bI}
+	</update>
+	
+	<delete id="boardDelete">
+		DELETE FROM posts WHWRE boardId=#{bI}
+	</delete>
+	
+	<update id="boardUpdate" parameterType="com.care.project.dto.BoardDTO">
+		UPDATE posts SET title=#{title}, content=#{content} WHERE boardId=#{boardId}
+	</update>
+	
+	
 	
 </mapper>
