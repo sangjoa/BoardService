@@ -7,13 +7,12 @@
 		<selectKey order="BEFORE" keyProperty="boardId" resultType="Integer">
 			SELECT nvl(max(boardId),0) + 1 FROM posts
 		</selectKey>
-		INSERT INTO posts VALUES(#{title},#{content},#{writer},#{vCount},#{cDate},#{mDate},#{fName})
+		INSERT INTO posts VALUES(#{boardId},#{title},#{content},#{writer},#{vCount},#{cDate},#{mDate},#{fName})
 	</insert>
 	
 	<select id="boardCount" resultType="Integer"  parameterType="Map">
 		SELECT count(*) FROM posts
 		<choose>
-			<when test="select == '전체'">WHERE title LIKE '%'||#{search}||'%' or writer LIKE '%'||#{search}||'%'</when>
 			<when test="select == '작성자'">WHERE writer LIKE '%'||#{search}||'%'</when>
 			<when test="select == '제목'">WHERE title LIKE '%'||#{search}||'%'</when>
 		</choose>
@@ -24,7 +23,6 @@
 			SELECT rownum rn, A.* FROM(
 				SELECT * FROM posts
 				<choose>
-					<when test="sel == '전체'">WHERE title LIKE '%'||#{search}||'%' or writer LIKE '%'||#{search}||'%'</when>
 					<when test="sel == '제목'">WHERE title LIKE '%'||#{search}||'%'</when>
 					<when test="sel == '작성자'">WHERE writer LIKE '%'||#{search}||'%'</when>
 				</choose>

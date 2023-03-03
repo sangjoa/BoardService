@@ -78,11 +78,12 @@ public class BoardService {
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		board.setcDate(sdf.format(date));
+		board.setmDate(sdf.format(date));
 		String fileName = "";
 		
 		if(mFile != null && mFile.getSize() != 0) {
 			fileName = mFile.getOriginalFilename();
-			String path = "C:\\springs15\\upload\\" + id;
+			String path = "C:\\springs15\\upload\\" + writer;
 			File file = new File(path);
 			if(file.exists() == false)
 				file.mkdir();

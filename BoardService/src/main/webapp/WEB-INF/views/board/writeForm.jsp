@@ -7,7 +7,7 @@
 		<table style="width: 650px;">
 			<tr>
 				<td style="width: 80px; height: 40px;" align="right">작성자</td>
-				<td style="width: 570px; height: 40px;"><input type=text name='writer'  readonly="readonly"  value="${sessionScope.id }"></td>
+				<td style="width: 570px; height: 40px;"><input type=text name='writer'  readonly="readonly"  value="${member.nickName}"></td>
 			</tr>
 			<tr>
 				<td style="width: 80px; height: 40px;" align="right">제 목</td>

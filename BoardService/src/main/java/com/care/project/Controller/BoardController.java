@@ -39,12 +39,14 @@ public class BoardController {
 		return "board/boardForm";
 	}
 	
-	
 	@GetMapping("board/writeForm")
-	public String write() {
+	public String write(Model model) {
 		if(loginCheck())
 			return "redirect:member/login";
 		
+		String id = (String)session.getAttribute("id");
+		MemberDTO member = mrepository.findById(id);
+		model.addAttribute("member",member);
 		
 		return "board/writeForm";
 	}

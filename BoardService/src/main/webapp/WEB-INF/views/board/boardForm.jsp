@@ -27,17 +27,13 @@
 				<tbody>
 						
 				<c:forEach var="boardList" items="${boardList }">
-						<c:forEach var="memberList" items="${memberList }">
-							<c:if test="${boardList.writer eq memberList.id}">
 								<tr>
 									<td style="width:330px; height:40px;" align="center"> <a href="viewForm?bI=${boardList.boardId }">${boardList.title } </a> </td>
-									<td style="width: 80px; height: 40px;" align="center">${memberList.nickName}</td>
+									<td style="width: 80px; height: 40px;" align="center">${boardList.writer}</td>
 									<td style="width: 120px; height: 40px;" align="center">${boardList.cDate}</td>
 									<td style="width: 80px; height: 40px;" align="center">${boardList.vCount}</td>
 								</tr>
-							</c:if>
-						</c:forEach>
-				</c:forEach>
+					</c:forEach>
 				</tbody>
 			</c:otherwise>
 		</c:choose>
