@@ -3,7 +3,7 @@ Spring Framwork Back-end CRUD
 
 <br>
 1. 아이템 선정
-웹 기본소양 CURD 게시판<br>
+웹 기본소양 CURD 게시판<br><br>
 
 2.프로젝트 개요
 프로젝트 명 : Board Service
