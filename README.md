@@ -8,14 +8,18 @@ Spring Framwork Back-end CRUD
 프로젝트 명 : Board Service
 개발 기간 : 23.02.06 ~ 23.03.06
 
-주요 기능
+주요 기능<br>
 
 사용자 : 회원가입, 로그인, 게시글 및 댓글 작성, 정보 수정, 유효성 및 중복 검사
-게시판 : CRUD 기능, 페이징 처리, 조회수
-댓글 : CRUD기능
-개발 언어 : JAVA8
-개발 환경 : spring(sts-3.9.15), Maven, Mybatis
-DataBase : Oracle
+
+게시판 : 
+CRUD 기능, 페이징 처리, 조회수<br>
+
+댓글 : CRUD기능<br>
+
+개발 언어 : JAVA8<br>
+개발 환경 : spring(sts-3.9.15), Maven, Mybatis<br>
+DataBase : Oracle<br>
 
 
 3. 요구사항 분석
