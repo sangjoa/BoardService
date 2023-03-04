@@ -40,13 +40,27 @@
 	</update>
 	
 	<delete id="boardDelete">
-		DELETE FROM posts WHWRE boardId=#{bI}
+		DELETE FROM posts WHERE boardId=#{bI}
 	</delete>
 	
 	<update id="boardUpdate" parameterType="com.care.project.dto.BoardDTO">
 		UPDATE posts SET title=#{title}, content=#{content} WHERE boardId=#{boardId}
 	</update>
 	
+	<insert id="commentProc" parameterType="com.care.project.dto.CommentDTO">
+			<selectKey order="BEFORE" keyProperty="commentId" resultType="Integer">
+				SELECT nvl(max(commentId),0) + 1 FROM comments			
+			</selectKey>
+			INSERT INTO comments VALUES(#{commentId}, #{content},#{cDate},#{writer},#{boardId})
+	</insert>
 	
+	<select id="commentList" resultType="com.care.project.dto.CommentDTO">
+		SELECT * FROM comments WHERE boardId=#{boardId}
+	</select>
+	
+	<delete id="cDelete">
+		DELETE FROM comments WHERE commentId=#{cId}
+	</delete>
+
 	
 </mapper>

@@ -1,5 +1,7 @@
 package com.care.project.Controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.care.project.dto.MemberDTO;
+import com.care.project.repository.BoardRepository;
 import com.care.project.repository.MemberRepository;
 import com.care.project.service.emailService;
 
@@ -15,6 +18,8 @@ public class AjaxController {
 
 	@Autowired private MemberRepository mRepository;
 	@Autowired private emailService eService;
+	@Autowired HttpSession session;
+	@Autowired private BoardRepository bRepository;
 	
 	
 	@ResponseBody
@@ -69,6 +74,10 @@ public class AjaxController {
 		return eService.setting(email);
 	}
 	
-	
-	
+	@ResponseBody
+	@PostMapping(value = "ajax/deleteComment" ,produces = "text/plain;charset=UTF-8")
+	public void cDelte(@RequestBody String cId) {
+		bRepository.cDelete(Integer.parseInt(cId));
+		
+	}
 }

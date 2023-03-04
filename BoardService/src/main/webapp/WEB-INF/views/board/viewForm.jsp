@@ -25,14 +25,15 @@
 		</tr>
 	</table>
 <div align="center" id="boardSelect">
-	<form action="/board/viewForm" method="post"
-		style="margin-bottom: 20px">
-		<input type="hidden" name="bI" value="${board.boardId }">
+
+	<form action="/board/viewForm" method="post" style="margin-bottom: 20px">
+		<input type="hidden" name="bI" id ="bI" value="${board.boardId }">
 		<textarea name="content" rows="7" cols="90" style="resize: none;"
 			placeholder="내용을 입력하세요."></textarea>
 		<input type="submit" value="등록"
 			style="width: 120px; height: 35px; margin-bottom: 20px">
 	</form>
+	
 	<table align="right" style="margin-bottom: 20px; margin-right: 29%">
 		<tr>
 			<td colspan=3 align="right" valign="top"><c:choose>
@@ -62,8 +63,8 @@
 		 <div id="commentView">
 				<table style="align-content: center; margin-right: 10%">
 					<tr>
-						<td>${commentList.writer }&nbsp; ${commentList.cTime } &nbsp;
-						<c:if test="${sessionScope.id eq commentList.writer }">
+						<td>${commentList.writer }&nbsp; ${commentList.cDate } &nbsp;
+						<c:if test="${member.nickName eq commentList.writer }">
 							<input type="hidden" id="commentId" value="${commentList.commentId}">
 							<a href="javascript:commentDelete(${commentList.commentId })">
 							 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTrpS0aWOR90DhYrNqtOxQLmoTxRU1EVOpww&usqp=CAU">
@@ -90,7 +91,7 @@
 		var ans = confirm("댓글을 삭제하시겠습니까?")
 		if(ans){
 		req = new XMLHttpRequest();
-		req.open('post','${pageContext.request.contextPath}/ajax/deleteComment')
+		req.open('post','/ajax/deleteComment')
 		req.send(commentId)
 		}
 		location.reload();
